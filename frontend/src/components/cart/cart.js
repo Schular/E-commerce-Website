@@ -3,11 +3,7 @@ import './cart.css';
 
 class Cart extends Component {
   render() {
-    function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
-    }
-    let cart = this.props.cart.filter(onlyUnique);
-    // let cart = [...new Set(this.props.cart)];
+    let cart = [...new Set(this.props.cart)];
     return (
       <div className="cart-container">
         <h1>Cart</h1>

@@ -66,7 +66,9 @@ class Products extends Component {
                   </div>
                   <div className="products-bottom">
                     <div className="price-text"><b>Price:</b> {product.price}€</div>
-                    <i className="fa fa-shopping-cart" onClick={() => this.props.addToCart(product)}></i>
+                    <div onClick={() => this.props.addToCart(product)}>
+                      <i className="fa fa-shopping-cart"></i>
+                    </div>
                   </div>
                 </li>
               )}
