@@ -7,6 +7,7 @@
     font-size: 16px;
     padding: 10px 15px;
     outline: none;
+    cursor: pointer;
 }
 
 label[for="sort-by"] {

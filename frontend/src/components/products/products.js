@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sort from '../sort/sort';
-import Pagination from "../pagination/pagination";
+import Pagination from '../pagination/pagination';
 import './products.css';
 
 class Products extends Component {
@@ -8,8 +8,7 @@ class Products extends Component {
     super();
     this.state = {
       products: [],
-      currPage: 1,
-      pages: 0
+      currPage: 1
     };
 
     this.handleProductsOrdering = this.handleProductsOrdering.bind(this);
@@ -22,13 +21,13 @@ class Products extends Component {
     
     switch (page) {
       case '<' :
-        this.setState({currPage: this.state.currPage - 1}, () => this.handleProductsOrdering(SELECT, this.state.currPage)); break;
+        this.handleProductsOrdering(SELECT, this.state.currPage - 1); break;
       case '>' :
-        this.setState({currPage: this.state.currPage + 1}, () => this.handleProductsOrdering(SELECT, this.state.currPage)); break;
+        this.handleProductsOrdering(SELECT, this.state.currPage + 1); break;
       default : {
         page = parseInt(page);
         
-        this.setState({currPage: page}, this.handleProductsOrdering(SELECT, page));
+        this.handleProductsOrdering(SELECT, page);
       }
     }
   }
@@ -36,37 +35,45 @@ class Products extends Component {
   handleProductsOrdering(target, page = this.state.currPage) {
     fetch(`/products/${target.value}/${page}`)
       .then(res=>res.json())
-      .then(products => this.setState({products}));
+      .then(products => this.setState({products, currPage: page}));
+  }
+
+  handleUrlProductChange(id) {
+    this.props.history.push(`/product/${id}`);
   }
 
   componentDidMount() {
-    fetch(`/products/name-ascending/1`)
+    fetch(`/products/name-ascending/${this.state.currPage}`)
       .then(res=>res.json())
       .then(products => this.setState({products}));
-  
-    fetch('/products/pages')
-      .then(res => res.json())
-      .then(pages => this.setState({pages}));
   }
 
   render() {
+    const { products, currPage } = this.state;
     return (
       <div className="products-container">
-        <h1>Products</h1>
+        <h1>Paws</h1>
         <Sort handleProductsOrdering={this.handleProductsOrdering}/>
-        {this.state.products[0] ? 
+        {products[0] ? 
           (
             <ul className="products-grid">
-              {this.state.products.map(product =>
+              {products.map(product =>
                 <li className="product-item" key={product.id}>
-                  <h1>{product.name}</h1>
-                  <div className="products-bottom">Price: {product.price}€</div>
+                  <div className="products-top">
+                    <div className="empty-div"></div>
+                    <h1>{product.name}</h1>
+                    <i className="fa fa-info-circle" onClick={() => this.handleUrlProductChange(product.id)}></i>
+                  </div>
+                  <div className="products-bottom">
+                    <div className="price-text"><b>Price:</b> {product.price}€</div>
+                    <i className="fa fa-shopping-cart" onClick={() => this.props.addToCart(product)}></i>
+                  </div>
                 </li>
               )}
             </ul>
           ) : <h1>Error while trying to load the products!</h1>
         }
-        <Pagination handlePageChange={this.handlePageChange} currPage={this.state.currPage}/>
+        <Pagination handlePageChange={this.handlePageChange} currPage={currPage}/>
       </div>
     );
   }

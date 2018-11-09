@@ -26,6 +26,10 @@ class ProductsService {
                 return dbConnection.query(`SELECT * FROM products ORDER BY price DESC LIMIT ${page}, ${limit}`); break;
         }
     }
+
+    getProductById(id) {
+        return dbConnection.query(`SELECT * FROM products WHERE id = ${id}`);
+    }
 }
 
 module.exports = new ProductsService();

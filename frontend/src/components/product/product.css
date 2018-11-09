@@ -1,0 +1,25 @@
+.product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.product-container div {
+    margin-top: 10px;
+}
+
+.add-cart {
+    padding: 10px 50px;
+    color: white;
+    background-color: #1EE510;
+    border: 1px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: .20s ease-in-out;
+}
+
+.add-cart:hover {
+    font-size: 1.1em;
+}

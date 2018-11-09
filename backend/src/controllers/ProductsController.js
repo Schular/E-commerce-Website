@@ -24,6 +24,13 @@ class ProductsController {
             return res.json(data);
         });
     }
+
+    getProductById(req, res) {
+        ProductsService.getProductById(req.params.id)
+        .then((data) => {
+            return res.json(data[0]);
+        });
+    }
 }
 
 module.exports = new ProductsController();

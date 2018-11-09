@@ -20,9 +20,9 @@ class ProductsRoute {
             ProductsController.getOrderedProducts(req, res);
         });
 
-        // this.app.get("/products/:id", (req, res) => {
-        //     ProductsController.getProductsById(req, res);
-        // });
+        this.app.get("/product/:id", (req, res) => {
+            ProductsController.getProductById(req, res);
+        });
     }
 }
 
