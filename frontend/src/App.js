@@ -16,28 +16,28 @@ class App extends Component {
   }
 
   addToCart = (product) => {
-    this.setState({cart: [...this.state.cart, product]}, () => console.log(this.state.cart));
+    this.setState({ cart: [...this.state.cart, product] });
   }
 
   render() {
     return (
       <div className="App">
         <Route path="/" name="header" component={Header}></Route>
-        <Route exact path="/" name="products" render={(props)=>
+        <Route exact path="/" name="products" render={(props) =>
           <Products
             {...props}
             addToCart={this.addToCart}
             cart={this.state.cart}
           />}
         />
-        <Route exact path="/cart" name="cart" render={(props)=> 
-          <Cart 
+        <Route exact path="/cart" name="cart" render={(props) =>
+          <Cart
             {...props}
             addToCart={this.addToCart}
-            cart={this.state.cart} 
+            cart={this.state.cart}
           />}
         />
-        <Route exact path="/product/:id" name="product" render={(props)=>
+        <Route exact path="/product/:id" name="product" render={(props) =>
           <Product
             {...props}
             addToCart={this.addToCart}

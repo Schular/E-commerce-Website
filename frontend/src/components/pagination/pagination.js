@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './pagination.css';
+import ProductsRepository from '../../repositories/ProductsRepository';
 
 class Pagination extends Component {
   constructor() {
@@ -21,8 +22,7 @@ class Pagination extends Component {
   }
 
   componentDidMount() {
-    fetch('/products/pages')
-      .then(res => res.json())
+    ProductsRepository.getPagesNumber()
       .then(numPages => this.generatePages(numPages));
   }
 

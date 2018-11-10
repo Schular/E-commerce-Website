@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
 import './products.css';
+import ProductsRepository from '../../repositories/ProductsRepository';
 
 class Products extends Component {
 	constructor() {
@@ -33,9 +34,9 @@ class Products extends Component {
   }
 
   handleProductsOrdering(target, page = this.state.currPage) {
-    fetch(`/products/${target.value}/${page}`)
-      .then(res=>res.json())
-      .then(products => this.setState({products, currPage: page}));
+    ProductsRepository.getProductsBySortByPage(target.value, page)
+      .then(products => this.setState({products, currPage: page}))
+      .catch(err => console.log(err));
   }
 
   handleUrlProductChange(id) {
@@ -43,9 +44,9 @@ class Products extends Component {
   }
 
   componentDidMount() {
-    fetch(`/products/name-ascending/${this.state.currPage}`)
-      .then(res=>res.json())
-      .then(products => this.setState({products}));
+    ProductsRepository.getProductsBySortByPage(`name-ascending`, this.state.currPage)
+      .then(products => this.setState({products}))
+      .catch(err => console.log(err));
   }
 
   render() {

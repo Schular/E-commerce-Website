@@ -11,15 +11,19 @@
 }
 
 .add-cart {
-    padding: 10px 50px;
-    color: white;
-    background-color: #1EE510;
-    border: 1px solid white;
-    border-radius: 25px;
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+	background: #43D1AF;
+    border-bottom: 2px solid #30C29E;
+    border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+    border-radius: 25px;	
+    color: #fff;
     cursor: pointer;
-    transition: .20s ease-in-out;
 }
 
 .add-cart:hover {
-    font-size: 1.1em;
+	background: #2EBC99;
 }

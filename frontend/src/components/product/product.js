@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './product.css';
+import ProductsRepository from '../../repositories/ProductsRepository';
 
 class Product extends Component {
   constructor() {
@@ -10,8 +11,7 @@ class Product extends Component {
   }
 
   getProductData() {
-    fetch(`/product/${this.props.match.params.id}`)
-      .then(res => res.json())
+    ProductsRepository.getProductDataById(this.props.match.params.id)
       .then(product => this.setState({product}))
       .catch(err => { console.log(err); this.props.history.push(`/`)});
   }
