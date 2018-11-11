@@ -5,12 +5,12 @@ import './header.css';
 class Header extends Component {
   handleLogOut() {
     Toastr.error(`You were logged out!`, 'Goodbye!', { timeOut: 3000 })
-    this.props.setAdmin(false);
+    this.props.handleUserStatus(false, false);
     this.props.history.push(`/`);
   }
 
   render() {
-    const { admin } = this.props;
+    const { admin, loggedIn } = this.props;
 
     return (
       <header className="header">
@@ -19,13 +19,13 @@ class Header extends Component {
             <h1>Happy Paws</h1>
           </div>
           <div className="header-right">
-            {admin && (
+            {loggedIn && (
             <div className="admin-pannel">
-              <div className="header-icon" onClick={() => this.props.history.push(`/orders`)}>Orders</div>
+              {admin && <div className="header-icon" onClick={() => this.props.history.push(`/orders`)}>Orders</div>}
               <div className="header-icon" onClick={() => this.handleLogOut()}>Logout</div>
             </div>
             )}
-            {!admin && <div className="header-icon" onClick={() => this.props.history.push(`/login`)}>Login</div>}
+            {!loggedIn && <div className="header-icon" onClick={() => this.props.history.push(`/login`)}>Login</div>}
             <i className="fa fa-shopping-cart header-icon" onClick={() => this.props.history.push(`/cart`)}></i>
           </div>
       </header>

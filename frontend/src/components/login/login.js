@@ -21,7 +21,7 @@ class Login extends Component {
             setTimeout(() => document.querySelector('.form-errors').innerText = '', 2000);
           } else {
             Toastr.success('You have successfully logged in!', 'Success!', { timeOut: 3000 })
-            this.props.setAdmin(response.admin);
+            this.props.handleUserStatus(response.admin, true);
             this.props.history.push(`/`);
           }
         })

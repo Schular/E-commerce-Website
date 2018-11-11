@@ -19,11 +19,12 @@ class App extends Component {
     this.state = {
       cart: [],
       admin: false,
+      loggedIn: false
     };
   }
 
-  setAdmin = (value) => {
-      this.setState({ admin: value ? 1 : false });
+  handleUserStatus = (adminStatus, value) => {
+    this.setState({ admin: adminStatus ? 1 : false, loggedIn: value });
   }
 
   addToCart = (product) => {
@@ -34,14 +35,14 @@ class App extends Component {
       check = false;
     }
     if (check) {
-      Toastr.success(`Added product ${product.name} to cart!`, 'Added!', {timeOut: 1000})
+      Toastr.success(`Added product ${product.name} to cart!`, 'Added!', { timeOut: 1000 })
     }
 
     this.setState({ cart: [...this.state.cart, product] });
   }
 
   removeFromCart = (product) => {
-    Toastr.error(`Removed product ${product.name} from cart!`, 'Removed!', {timeOut: 1000})
+    Toastr.error(`Removed product ${product.name} from cart!`, 'Removed!', { timeOut: 1000 })
     this.setState({ cart: [...this.state.cart.filter(p => p.name !== product.name)] });
   }
 
@@ -53,7 +54,7 @@ class App extends Component {
     let newArray = this.state.cart;
     const index = this.state.cart.findIndex((product) => product.id === id);
     newArray.splice(index, 1)
-    
+
     this.setState({ cart: newArray });
   }
 
@@ -64,7 +65,8 @@ class App extends Component {
           <Header
             {...props}
             admin={this.state.admin}
-            setAdmin={this.setAdmin}
+            loggedIn={this.state.loggedIn}
+            handleUserStatus={this.handleUserStatus}
           />}
         />
         <Switch>
@@ -77,7 +79,7 @@ class App extends Component {
           <Route exact path="/login" name="login" render={(props) =>
             <Login
               {...props}
-              setAdmin={this.setAdmin}
+              handleUserStatus={this.handleUserStatus}
             />}
           />
           <Route exact path="/" name="products" render={(props) =>
