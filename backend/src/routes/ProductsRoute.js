@@ -23,6 +23,14 @@ class ProductsRoute {
         this.app.get("/product/:id", (req, res) => {
             ProductsController.getProductById(req, res);
         });
+
+        this.app.put("/product/:id", (req, res) => {
+            ProductsController.editProduct(req, res);
+        });
+
+        this.app.delete("/product/:id", (req, res) => {
+            ProductsController.deleteProduct(req, res);
+        });
         
         this.app.post("/product", (req, res) => {
             ProductsController.addProduct(req, res);

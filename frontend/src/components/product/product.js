@@ -17,22 +17,30 @@ class Product extends Component {
       .catch(err => { console.log(err); this.props.history.push(`/`) });
   }
 
-  addProduct(e) {
+  handleAddEditProduct(e, action) {
     const form = new FormData(document.querySelector('form'));
     const product = {
+      id: this.props.match.params.id,
       name: form.get('name'),
       price: form.get('price'),
       description: form.get('description')
     }
-
+    
     e.preventDefault();
-    ProductsRepository.addProduct(product)
-      .then(this.props.history.push(`/`))
-      .catch((err) => console.log(err));
+
+    if (action === 'Add') {
+      ProductsRepository.addProduct(product)
+        .then(this.props.history.push(`/`))
+        .catch((err) => console.log(err));
+    } else if (action === 'Edit') {
+      ProductsRepository.editProduct(product)
+        .then(this.props.history.push(`/`))
+        .catch((err) => console.log(err));
+    }
   }
 
   componentDidMount() {
-    if (this.props.admin && this.props.match.params.id !== 'add') {
+    if (!this.props.admin && this.props.match.params.id !== 'add') {
       this.getProductData();
     }
   }
@@ -45,6 +53,7 @@ class Product extends Component {
         return this.renderAddEditProduct(this.state.product, "Edit");
       }
     } else {
+      console.log(this.state);
       return this.renderProduct();
     }
   }
@@ -53,7 +62,7 @@ class Product extends Component {
     return (
       <div className="product-form">
         <h1>{action} product</h1>
-        <form onSubmit={(e) => this.addProduct(e)}>
+        <form onSubmit={(e) => this.handleAddEditProduct(e, action)}>
           <input type="text" name="name" placeholder="Product Name" defaultValue={data.name} required />
           <input type="number" name="price" placeholder="Product Price" defaultValue={data.price} required />
           <input type="text" name="description" placeholder="Description" defaultValue={data.description} required />

@@ -35,6 +35,36 @@ class ProductsRepository {
       .then(result => result)
       .catch(err => console.log(err));
   }
+
+  editProduct(data) {
+    return fetch(
+      `/product/${data.id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "PUT",
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => result)
+      .catch(err => console.log(err));
+  }
+
+  deleteProduct(id) {
+    return fetch(
+      `/product/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "DELETE",
+        body: JSON.stringify({id: id})
+      })
+      .then(response => response.json())
+      .then(result => result)
+      .catch(err => console.log(err));
+  }
 }
 
 export default new ProductsRepository();

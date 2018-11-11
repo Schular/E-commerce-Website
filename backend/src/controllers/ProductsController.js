@@ -32,6 +32,20 @@ class ProductsController {
       });
   }
 
+  editProduct(req, res) {
+    ProductsService.editProduct(req.body)
+      .then((data) => {
+        return res.json(data);
+      })
+  }
+
+  deleteProduct(req, res) {
+    ProductsService.deleteProduct(req.body.id)
+      .then((data) => {
+        return res.json(data);
+      })
+  }
+
   addProduct(req, res) {
     ProductsService.addProduct(req.body)
       .then((data) => {

@@ -47,7 +47,7 @@ class Pagination extends Component {
                 <li className='page page-right page-hidden'>{'>>'}</li>
               }
             </ul>
-          ) : <h4>Something went wrong while trying to load the pages!</h4>
+          ) : ''
         }
       </div>
     );

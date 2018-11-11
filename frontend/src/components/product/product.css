@@ -42,7 +42,8 @@
 }
 
 .product-form {
-    width: 50%;
+    min-width: 320px;
+    width: 30%;
 }
 
 .product-form form {

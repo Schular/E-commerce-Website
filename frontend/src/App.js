@@ -26,6 +26,14 @@ class App extends Component {
     this.setState({ cart: [...this.state.cart, product] });
   }
 
+  removeFromCart = (product) => {
+    this.setState({ cart: [...this.state.cart.filter(p => p.name !== product.name)]});
+  }
+
+  clearCart = () => {
+    this.setState({ cart: []});
+  }
+
   render() {
     return (
       <div className="App">
@@ -52,6 +60,7 @@ class App extends Component {
           <Products
             {...props}
             addToCart={this.addToCart}
+            removeFromCart={this.removeFromCart}
             admin={this.state.admin}
             cart={this.state.cart}
           />}
@@ -59,6 +68,7 @@ class App extends Component {
         <Route exact path="/cart" name="cart" render={(props) =>
           <Cart
             {...props}
+            clearCart={this.clearCart}
             cart={this.state.cart}
           />}
         />
@@ -67,7 +77,7 @@ class App extends Component {
             {...props}
             addToCart={this.addToCart}
             cart={this.state.cart}
-            admin={true}
+            admin={this.state.admin}
           />}
         />
       </div>

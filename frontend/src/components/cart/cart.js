@@ -17,7 +17,10 @@ class Cart extends Component {
     
     e.preventDefault();
     OrderRepository.sendOrder(data)
-      .then(this.props.history.push(`/`))
+      .then(() => {
+        this.props.clearCart();
+        this.props.history.push(`/`)
+      })
       .catch((e) => console.log(e));
   }
 

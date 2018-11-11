@@ -57,19 +57,20 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-around;
-    margin-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .products-top {
+    padding: 10px 10px 0 10px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
 }
 
 .products-top i {
     height: 30px;
     width: 30px;
-    margin: 10px 10px 0 0;
     font-size: 30px;
     transition: .2s ease-in-out;
 }
@@ -80,6 +81,10 @@
     color: #171219;
     cursor: pointer;
     border-radius: 30px;
+}
+
+.delete-icon:hover {
+    color: red !important;
 }
 
 .products-top .empty-div {
@@ -97,4 +102,9 @@
     transition: .35s ease-in-out;
     font-size: 32px;
     cursor: pointer;
+}
+
+.error-text {
+    margin: 50px;
+    color: red;
 }

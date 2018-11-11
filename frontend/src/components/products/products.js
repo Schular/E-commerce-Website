@@ -16,6 +16,20 @@ class Products extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
+  getProductsBySortByPage(sortType, currPage) {
+    ProductsRepository.getProductsBySortByPage(sortType, currPage)
+      .then(products => this.setState({ products }))
+      .catch(err => console.log(err));
+  }
+
+  deleteProduct(product) {
+    ProductsRepository.deleteProduct(product.id)
+      .then(() => { 
+        this.props.removeFromCart(product);
+        this.getProductsBySortByPage(`name-ascending`, this.state.currPage) })
+      .catch(err => console.log(err));
+  }
+
   handlePageChange(target) {
     const SELECT = document.querySelector('#sort-by');
     let page = target.dataset.value;
@@ -44,9 +58,7 @@ class Products extends Component {
   }
 
   componentDidMount() {
-    ProductsRepository.getProductsBySortByPage(`name-ascending`, this.state.currPage)
-      .then(products => this.setState({ products }))
-      .catch(err => console.log(err));
+    this.getProductsBySortByPage(`name-ascending`, this.state.currPage);
   }
 
   render() {
@@ -57,31 +69,30 @@ class Products extends Component {
       <div className="products-container">
         <h1>Paws</h1>
         <Sort handleProductsOrdering={this.handleProductsOrdering} />
-        {products[0] ?
-          (
-            <ul className="products-grid">
-              {!admin && <li className="product-item add-item">
-                <i className="fa fa-plus-circle" onClick={() => this.props.history.push(`/product/add`)}></i>
-              </li>
-              }
-              {products.map(product =>
-                <li className="product-item" key={product.id}>
-                  <div className="products-top">
-                    <div className="empty-div"></div>
-                    <h1>{product.name}</h1>
-                    <i className="fa fa-info-circle" onClick={() => this.handleUrlProductChange(product.id)}></i>
-                  </div>
-                  <div className="products-bottom">
-                    <div className="price-text"><b>Price:</b> {product.price}€</div>
-                    <div onClick={() => this.props.addToCart(product)}>
-                      <i className="fa fa-shopping-cart"></i>
-                    </div>
-                  </div>
-                </li>
-              )}
-            </ul>
-          ) : <h1>Error while trying to load the products!</h1>
-        }
+        {!products.length ? <div className="error-text">No products were found! :(</div> : ''}
+        <ul className="products-grid">
+          {admin && <li className="product-item add-item">
+            <i className="fa fa-plus-circle" onClick={() => this.props.history.push(`/product/add`)}></i>
+          </li>
+          }
+          {products.map(product =>
+            <li className="product-item" key={product.id}>
+              <div className="products-top">
+                {!admin ? <div className="empty-div"></div> :
+                  <i className="fa fa-times-circle delete-icon" onClick={() => this.deleteProduct(product)}></i>}
+                <h2>{product.name}</h2>
+                <i className="fa fa-info-circle" onClick={() => this.handleUrlProductChange(product.id)}></i>
+              </div>
+              <div className="products-bottom">
+                <div className="price-text"><b>Price:</b> {product.price}€</div>
+                <div onClick={() => this.props.addToCart(product)}>
+                  <i className="fa fa-shopping-cart"></i>
+                </div>
+              </div>
+            </li>
+          )
+          }
+        </ul>
         <Pagination handlePageChange={this.handlePageChange} currPage={currPage} />
       </div>
     );
