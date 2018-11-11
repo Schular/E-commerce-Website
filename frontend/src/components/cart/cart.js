@@ -6,7 +6,7 @@ class Cart extends Component {
 
   sendOrder(e, products) {
     const form = new FormData(document.querySelector('form'));
-    let data = {
+    const data = {
       products,
       user: {
         name: form.get('name'),
@@ -14,22 +14,23 @@ class Cart extends Component {
         phone: form.get('phone')
       }
     }
-
+    
     e.preventDefault();
     OrderRepository.sendOrder(data)
       .then(this.props.history.push(`/`))
       .catch((e) => console.log(e));
   }
 
-  render() {
-    function calcTotal(products) {
-      let total = 0;
-      products.map(product => total += product.price * product.quantity)
-      return (
-        <h2 className="total-price">Total: {total} €</h2>
-      )
-    }
+  calcTotal(products) {
+    let total = 0;
 
+    products.map(product => total += product.price * product.quantity)
+    return (
+      <h2 className="total-price">Total: {total} €</h2>
+    )
+  }
+
+  render() {
     // productects from same component are not equal, generating duplicate after using new Set
     // I had to stringify first and convert them back to productects
     let { cart } = this.props;
@@ -64,8 +65,8 @@ class Cart extends Component {
             <form onSubmit={(e) => this.sendOrder(e, cart)}>
               <input type="text" name="name" placeholder="Your Name" minLength="6" required/>
               <input type="text" name="address" placeholder="Address" minLength="10" required/>
-              <input type="tel" name="phone" placeholder="Phone Number" minLength="8" maxLength="13" required/>
-              {cart.length ? calcTotal(cart) : ''}
+              <input type="tel" name="phone" placeholder="Phone Number" minLength="8" required/>
+              {cart.length ? this.calcTotal(cart) : ''}
               <button type="submit" className="cart-buy">Place order</button>
             </form>
           </div>
@@ -73,9 +74,9 @@ class Cart extends Component {
         ) : (
           <div className="error-message">
             <h4>No paws added in the cart. :(</h4>
-            <h5>Please go back to 
+            <h5>Please go back to
               <span className="main-page" onClick={() => this.props.history.push(`/`)}> main page </span> 
-              to add some!</h5>
+              and add some!</h5>
         </div>
         )}
       </div>

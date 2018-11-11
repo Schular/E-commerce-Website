@@ -1,0 +1,47 @@
+.orders-container {
+    min-height: calc(100vh - 75px);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.orders-container::after {
+    position: absolute;
+    content: '';
+    background: url("../../img/paws.jpg") repeat center center fixed;
+    background-size: contain;
+    opacity: 0.1;
+    top: 70px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;   
+}
+
+.table {
+    width: 100%;
+    border-spacing: 20px;
+    border-collapse: separate;
+}
+
+.table-details {
+    width: 35%;
+}
+
+.table-products {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-products li {
+    margin-left: 10px;
+}
+
+.table-total-price, .color-blue {
+    color: #43D1AF;
+}

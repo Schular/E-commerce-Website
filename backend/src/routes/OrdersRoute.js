@@ -8,6 +8,9 @@ class OrdersRoute {
     }
 
     initRoutes() {
+        this.app.get("/orders", (req, res) => {
+            OrdersController.getOrders(req, res);
+        });
         this.app.post("/orders", (req, res) => {
             OrdersController.sendOrder(req, res);
         });

@@ -5,7 +5,7 @@ import './products.css';
 import ProductsRepository from '../../repositories/ProductsRepository';
 
 class Products extends Component {
-	constructor() {
+  constructor() {
     super();
     this.state = {
       products: [],
@@ -19,15 +19,15 @@ class Products extends Component {
   handlePageChange(target) {
     const SELECT = document.querySelector('#sort-by');
     let page = target.dataset.value;
-    
+
     switch (page) {
-      case '<' :
+      case '<':
         this.handleProductsOrdering(SELECT, this.state.currPage - 1); break;
-      case '>' :
+      case '>':
         this.handleProductsOrdering(SELECT, this.state.currPage + 1); break;
-      default : {
+      default: {
         page = parseInt(page);
-        
+
         this.handleProductsOrdering(SELECT, page);
       }
     }
@@ -35,7 +35,7 @@ class Products extends Component {
 
   handleProductsOrdering(target, page = this.state.currPage) {
     ProductsRepository.getProductsBySortByPage(target.value, page)
-      .then(products => this.setState({products, currPage: page}))
+      .then(products => this.setState({ products, currPage: page }))
       .catch(err => console.log(err));
   }
 
@@ -45,19 +45,25 @@ class Products extends Component {
 
   componentDidMount() {
     ProductsRepository.getProductsBySortByPage(`name-ascending`, this.state.currPage)
-      .then(products => this.setState({products}))
+      .then(products => this.setState({ products }))
       .catch(err => console.log(err));
   }
 
   render() {
     const { products, currPage } = this.state;
+    const { admin } = this.props;
+
     return (
       <div className="products-container">
         <h1>Paws</h1>
-        <Sort handleProductsOrdering={this.handleProductsOrdering}/>
-        {products[0] ? 
+        <Sort handleProductsOrdering={this.handleProductsOrdering} />
+        {products[0] ?
           (
             <ul className="products-grid">
+              {!admin && <li className="product-item add-item">
+                <i className="fa fa-plus-circle" onClick={() => this.props.history.push(`/product/add`)}></i>
+              </li>
+              }
               {products.map(product =>
                 <li className="product-item" key={product.id}>
                   <div className="products-top">
@@ -76,7 +82,7 @@ class Products extends Component {
             </ul>
           ) : <h1>Error while trying to load the products!</h1>
         }
-        <Pagination handlePageChange={this.handlePageChange} currPage={currPage}/>
+        <Pagination handlePageChange={this.handlePageChange} currPage={currPage} />
       </div>
     );
   }

@@ -28,7 +28,14 @@ class ProductsService {
     }
 
     getProductById(id) {
-        return dbConnection.query(`SELECT * FROM products WHERE id = ${id}`);
+        return dbConnection.query(`SELECT * FROM products WHERE id = ${id}`)
+            .then(result => result[0].id ? result[0] : null)
+            .catch(err => console.log(err));
+    }
+
+    addProduct(data) {
+        return dbConnection.query(`INSERT INTO products (name, price, description) 
+            VALUES ('${data.name}', ${data.price}, '${data.description}')`);
     }
 }
 

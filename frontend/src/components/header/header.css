@@ -11,23 +11,45 @@
     margin-bottom: 5px;
 }
 
-.header-left:hover, .header-right:hover {
+.header-left:hover, .header-icon:hover {
     cursor: pointer;
     color: #4CE0D2;
+    transition: 0.5s ease-in-out;
 }
 
 .header-left {
+    transition: 0.5s ease-in-out;
     display: flex;
     margin-left: 20px;
     flex-direction: row;
 }
 
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .header-right i {
+    transition: 1s ease-in-out;
     font-size: 30px;
-    margin-right: 10px;
+    margin: 0 15px;
 }
 
 .header-left i {
     font-size: 45px;
     margin-right: 10px;
+}
+
+.header-icon {
+    font-size: 22px;
+}
+
+.admin-pannel {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-pannel div {
+    margin-left: 10px;
 }

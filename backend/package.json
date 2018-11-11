@@ -9,10 +9,12 @@
   "author": "Paul Sular",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "npm": "^6.4.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"

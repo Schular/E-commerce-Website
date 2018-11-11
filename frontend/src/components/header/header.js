@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './header.css';
-import 'font-awesome/css/font-awesome.min.css';
-
 
 class Header extends Component {
+  handleLogOut() {
+    this.props.setAdmin(false);
+    this.props.history.push(`/`)
+  }
+
   render() {
     return (
       <header className="header">
@@ -11,8 +14,15 @@ class Header extends Component {
             <i className="fa fa-paw"></i>
             <h1>Happy Paws</h1>
           </div>
-          <div className="header-right" onClick={() => this.props.history.push(`/cart`)}>
-            <i className="fa fa-shopping-cart"></i>
+          <div className="header-right">
+            {!this.props.admin && (
+            <div className="admin-pannel">
+              <div className="header-icon" onClick={() => this.props.history.push(`/orders`)}>Orders</div>
+              <div className="header-icon" onClick={() => this.handleLogOut()}>Logout</div>
+            </div>
+            )}
+            {!this.props.admin && <div className="header-icon" onClick={() => this.props.history.push(`/login`)}>Login</div>}
+            <i className="fa fa-shopping-cart header-icon" onClick={() => this.props.history.push(`/cart`)}></i>
           </div>
       </header>
     );

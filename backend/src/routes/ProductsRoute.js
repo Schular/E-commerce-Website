@@ -23,6 +23,10 @@ class ProductsRoute {
         this.app.get("/product/:id", (req, res) => {
             ProductsController.getProductById(req, res);
         });
+        
+        this.app.post("/product", (req, res) => {
+            ProductsController.addProduct(req, res);
+        });
     }
 }
 

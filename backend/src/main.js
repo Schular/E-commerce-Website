@@ -1,5 +1,6 @@
 const ProductsRoute = require('./routes/ProductsRoute');
 const OrdersRoute = require('./routes/OrdersRoute');
+const AuthenticationRoute = require('./routes/AuthenticationRoute');
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -12,5 +13,6 @@ app.use(bodyParser.json());
 
 new ProductsRoute(app);
 new OrdersRoute(app);
+new AuthenticationRoute(app);
 
 app.listen(port, () => { console.log(`Server started on port ${port}...`)})

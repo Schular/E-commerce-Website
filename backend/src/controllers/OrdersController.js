@@ -4,6 +4,13 @@ class OrdersController {
     constructor() {
     }
 
+    getOrders(req, res) {
+        OrdersService.getOrders()
+        .then((data) => {
+            return res.json(data);
+        });
+    }
+
     sendOrder(req, res) {
         OrdersService.sendOrder(req.body)
         .then((data) => {

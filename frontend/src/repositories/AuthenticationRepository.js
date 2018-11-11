@@ -1,8 +1,8 @@
-class OrderRepository {
+class AuthenticationRepository {
 
-  sendOrder(data) {
+  handleLogin(data) {
     return fetch(
-      '/orders', {
+      `/login`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -14,13 +14,6 @@ class OrderRepository {
       .then(result => result)
       .catch(err => console.log(err));
   }
-
-  getOrders() {
-    return fetch('/orders')
-      .then(response => response.json())
-      .then(result => result)
-      .catch(err => console.log(err));
-  }
 }
 
-export default new OrderRepository();
+export default new AuthenticationRepository();
