@@ -50,6 +50,10 @@
     margin-top: 20px;
 }
 
+.product-description {
+    padding: 0 20px;
+}
+
 .product-form input[type="text"],
 .product-form input[type="number"] {
 	width: 80%;
