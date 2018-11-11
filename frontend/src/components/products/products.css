@@ -43,6 +43,7 @@
 }
 
 .add-item i:hover {
+    color: #43D1AF;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
     font-size: 125px;
@@ -68,6 +69,14 @@
     justify-content: space-between;
 }
 
+.products-top h3 {
+    width: 180px;
+    color: #43D1AF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .products-top i {
     height: 30px;
     width: 30px;
@@ -89,6 +98,10 @@
 
 .products-top .empty-div {
     width: 40px;
+}
+
+.price-text b {
+    color: #43D1AF;
 }
 
 .products-bottom i {

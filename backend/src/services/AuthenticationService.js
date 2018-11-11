@@ -10,7 +10,8 @@ class OrdersService {
 
     checkEmail(email) {
         return dbConnection.query(`SELECT * FROM users WHERE email = '${email}'`)
-            .then((result) => result[0].id ? result[0] : null);
+            .then((result) => result[0] ? result[0] : null)
+            .catch((err) => console.log(err))
     }
 }
 

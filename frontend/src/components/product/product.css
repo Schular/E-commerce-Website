@@ -43,7 +43,7 @@
 
 .product-form {
     min-width: 320px;
-    width: 30%;
+    width: 100%;
 }
 
 .product-form form {
@@ -85,4 +85,34 @@
 
 .add-product:hover {
 	background: #2EBC99;
+}
+
+.view-product {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.split-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.split-left {
+    min-width: 320px;
+    width: calc(50% - 300px);
+}
+
+@media screen and (max-width: 650px) {
+    .split-form {
+        flex-direction: column;
+    }
+
+    .split-right, .split-left {
+        width: 100%;
+    }
+
 }

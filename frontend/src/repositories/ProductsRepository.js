@@ -9,7 +9,7 @@ class ProductsRepository {
 
   getProductDataById(id) {
     return fetch(`/product/${id}`)
-      .then(response => response.json())
+      .then(response => response.json() )
       .then(result => result)
       .catch(err => console.log(err));
   }

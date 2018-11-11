@@ -29,7 +29,7 @@ class ProductsService {
 
 	getProductById(id) {
 		return dbConnection.query(`SELECT * FROM products WHERE id = ${id}`)
-			.then(result => result[0].id ? result[0] : null)
+			.then(result => result[0] ? result[0] : null)
 			.catch(err => console.log(err));
 	}
 

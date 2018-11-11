@@ -18,16 +18,15 @@ class AuthenticationController {
               email: result.email,
               admin: result.admin
             }
-
             return res.json(data);
           } else {
-            throw (res.status(400).send({ error: "Password does not match." }));
+            throw (res.status(400).send({ error: "Incorrect password." }));
           }
         } else {
-          throw (res.status(400).send({ error: "Something went wrong." }));
+          throw (res.status(400).send({ error: "Email not found." }));
         }
       })
-      .catch(() => { throw (res.status(400).send({ error: "Email not found." })) })
+      .catch(err => err)
   }
 }
 

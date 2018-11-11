@@ -23,7 +23,7 @@ class Login extends Component {
 
   getOrdersData() {
     OrderRepository.getOrders()
-      .then(result => this.setState({ users: result.users, orders: result.orders }, () => { console.log(result) }))
+      .then(result => this.setState({ users: result.users, orders: result.orders }))
       .catch(err => { console.log(err); });
   }
 

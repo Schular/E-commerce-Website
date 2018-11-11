@@ -3,6 +3,7 @@ import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
 import './products.css';
 import ProductsRepository from '../../repositories/ProductsRepository';
+import Toastr from 'toastr/toastr';
 
 class Products extends Component {
   constructor() {
@@ -24,9 +25,11 @@ class Products extends Component {
 
   deleteProduct(product) {
     ProductsRepository.deleteProduct(product.id)
-      .then(() => { 
+      .then(() => {
+        Toastr.error(`The product ${product.name} was deleted!`, 'Deleted!', {timeOut: 3000})
         this.props.removeFromCart(product);
-        this.getProductsBySortByPage(`name-ascending`, this.state.currPage) })
+        this.getProductsBySortByPage(`name-ascending`, this.state.currPage)
+      })
       .catch(err => console.log(err));
   }
 
@@ -72,7 +75,7 @@ class Products extends Component {
         {!products.length ? <div className="error-text">No products were found! :(</div> : ''}
         <ul className="products-grid">
           {admin && <li className="product-item add-item">
-            <i className="fa fa-plus-circle" onClick={() => this.props.history.push(`/product/add`)}></i>
+            <i className="fa fa-plus-circle" onClick={() => this.props.history.push(`/product`)}></i>
           </li>
           }
           {products.map(product =>
@@ -80,7 +83,7 @@ class Products extends Component {
               <div className="products-top">
                 {!admin ? <div className="empty-div"></div> :
                   <i className="fa fa-times-circle delete-icon" onClick={() => this.deleteProduct(product)}></i>}
-                <h2>{product.name}</h2>
+                <h3>{product.name}</h3>
                 <i className="fa fa-info-circle" onClick={() => this.handleUrlProductChange(product.id)}></i>
               </div>
               <div className="products-bottom">
