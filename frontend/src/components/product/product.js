@@ -44,15 +44,15 @@ class Product extends Component {
     if (action === 'Add') {
       ProductsRepository.addProduct(product)
         .then(() => {
-          Toastr.success('You have successfully added the product!', 'Success!', { timeOut: 3000 })
-          this.props.history.push(`/`)
+          Toastr.success('You have successfully added the product!', 'Success!', { timeOut: 3000 });
+          this.props.history.push(`/`);
         })
         .catch((err) => console.log(err));
     } else if (action === 'Edit') {
       ProductsRepository.editProduct(product)
         .then(() => {
-          Toastr.success('You have successfully edited the product!', 'Success!', { timeOut: 3000 })
-          this.props.history.push(`/`)
+          Toastr.success('You have successfully edited the product!', 'Success!', { timeOut: 3000 });
+          this.props.history.push(`/`);
         })
         .catch((err) => console.log(err));
     }
@@ -73,6 +73,9 @@ class Product extends Component {
         return this.renderAddEditProduct(this.state.product, "Edit");
       }
     } else {
+      if (!this.props.match.params.id) {
+        this.props.history.push(`/404`);
+      }
       return this.renderProduct();
     }
   }
