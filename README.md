@@ -1,7 +1,7 @@
 # E-commerce Website
 ---
 ## Description
-.................
+#### Hint: to head back to main page click on the header title
 
 ### Must have installed
 
