@@ -42,7 +42,10 @@ class App extends Component {
   }
 
   removeFromCart = (product) => {
-    Toastr.error(`Removed product ${product.name} from cart!`, 'Removed!', { timeOut: 1000 })
+    if(this.state.cart.filter(p => p.name === product.name).length) {
+      Toastr.error(`Removed product ${product.name} from cart!`, 'Removed!', { timeOut: 1000 });
+    }
+
     this.setState({ cart: [...this.state.cart.filter(p => p.name !== product.name)] });
   }
 
