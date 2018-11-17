@@ -4,7 +4,7 @@ import './header.css';
 
 class Header extends Component {
   handleLogOut() {
-    Toastr.error(`You were logged out!`, 'Goodbye!', { timeOut: 3000 })
+    Toastr.error(`You were logged out!`, 'Goodbye!', { timeOut: 3000 });
     this.props.handleUserStatus(false, false);
     this.props.history.push(`/`);
   }

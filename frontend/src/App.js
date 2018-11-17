@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   removeFromCart = (product) => {
-    if(this.state.cart.filter(p => p.name === product.name).length) {
+    if (this.state.cart.filter(p => p.name === product.name).length) {
       Toastr.error(`Removed product ${product.name} from cart!`, 'Removed!', { timeOut: 1000 });
     }
 
@@ -54,9 +54,15 @@ class App extends Component {
   }
 
   removeQuantity = (id) => {
-    let newArray = this.state.cart;
-    const index = this.state.cart.findIndex((product) => product.id === id);
-    newArray.splice(index, 1)
+    let stateArray = this.state.cart;
+    let newArray = stateArray;
+
+    for (let i = stateArray.length - 1; i >= 0; i--) {
+      if (stateArray[i].id === id) {
+        newArray.splice(i, 1);
+        break;
+      }
+    }
 
     this.setState({ cart: newArray });
   }

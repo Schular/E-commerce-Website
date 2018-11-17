@@ -13,36 +13,37 @@ class Pagination extends Component {
   generatePages(numPages) {
     let pages = [];
 
-    for(let i = 0; i < numPages; i++) {
+    for (let i = 0; i < numPages; i++) {
       pages[i] = i + 1;
     }
 
-    this.setState({pages});
     return pages;
   }
 
   componentDidMount() {
     ProductsRepository.getPagesNumber()
-      .then(numPages => this.generatePages(numPages));
+      .then(numPages => this.generatePages(numPages))
+      .then(pages => this.setState({ pages }));
   }
 
   render() {
     const { currPage, handlePageChange } = this.props;
+
     return (
       <div className='pagination'>
-        {this.state.pages.length ? 
+        {this.state.pages.length ?
           (
             <ul>
-              {currPage !== 1 ? 
+              {currPage !== 1 ?
                 <li className='page page-left' onClick={(e) => handlePageChange(e.target)} data-value={'<'}>{'<<'}</li> :
                 <li className='page page-left page-hidden'>{'<<'}</li>
               }
               {this.state.pages.map(page =>
-                  page === currPage ?
-                    <li className='page selected' onClick={(e) => handlePageChange(e.target)} key={page} data-value={page}>{page}</li> :
-                    <li className='page' onClick={(e) => handlePageChange(e.target)} key={page} data-value={page}>{page}</li>
+                page === currPage ?
+                  <li className='page selected' onClick={(e) => handlePageChange(e.target)} key={page} data-value={page}>{page}</li> :
+                  <li className='page' onClick={(e) => handlePageChange(e.target)} key={page} data-value={page}>{page}</li>
               )}
-              {currPage !== this.state.pages.length ? 
+              {currPage !== this.state.pages.length ?
                 <li className='page page-right' onClick={(e) => handlePageChange(e.target)} data-value={'>'}>{'>>'}</li> :
                 <li className='page page-right page-hidden'>{'>>'}</li>
               }
